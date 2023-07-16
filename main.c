@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <SDL.h>
 #include "./constants.h"
 
@@ -15,7 +16,7 @@ struct game_object {
 	float vel_x;
 	float vel_y;
 
-} ball;
+} ball, enemy;
 
 int initialize_window(void) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -102,6 +103,18 @@ void setup() {
 	ball.height = 15;
 	ball.x = WINDOW_WIDTH / 2;
 	ball.y = WINDOW_HEIGHT / 2;
+
+	// setting up the enemy
+	enemy.width = 25;
+	enemy.height = 25;
+
+	// position the enemy randomly on the screen
+	
+	// Seed the random number generator with the current timestamp
+	srand(time(NULL));
+
+	enemy.x = (float)rand() / (float)(RAND_MAX / WINDOW_WIDTH);
+	enemy.y = (float)rand() / (float)(RAND_MAX / WINDOW_HEIGHT);
 }
 
 void update(void) {
@@ -172,6 +185,16 @@ void render() {
 	};
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &ball_rect);
+
+	//Drawing the enemy
+	SDL_Rect enemy_rect = {
+		(int)enemy.x,
+		(int)enemy.y,
+		(int)enemy.width,
+		(int)enemy.height
+	};
+	SDL_SetRenderDrawColor(renderer, 206, 71, 96, 255);
+	SDL_RenderFillRect(renderer, &enemy_rect);
 
 	//The Back Buffer is where you do the rendering logic and build the game objects
 	//The Front Buffer is what you display to the user
