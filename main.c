@@ -157,13 +157,13 @@ void update(void) {
 	if (ball.x <= 0) {
 		ball.x = 0;
 	}
-	if (ball.x >= WINDOW_WIDTH) {
+	if (ball.x >= WINDOW_WIDTH - ball.width) {
 		ball.x = WINDOW_WIDTH - ball.width;
 	}
 	if (ball.y <= 0) {
 		ball.y = 0;
 	}
-	if (ball.y >= WINDOW_HEIGHT) {
+	if (ball.y >= WINDOW_HEIGHT - ball.height) {
 		ball.y = WINDOW_HEIGHT - ball.height;
 	}
 
